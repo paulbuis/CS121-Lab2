@@ -1,6 +1,6 @@
 package cs121.picture;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "SpellCheckingInspection"})
 public final class GrayScaler extends PictureTransformer {
 
 	@Override
