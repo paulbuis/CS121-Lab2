@@ -31,10 +31,12 @@ public class PictureMaker {
 
     public static void main(String[] args) {
         try {
-            @SuppressWarnings("SpellCheckingInspection") final Picture picture = new Picture("mediasources/blueMotorcycle.jpg");
-            final Picture shrunk = picture.resize(picture.getWidth() / 2, picture.getHeight() / 2);
+            final Picture picture = new Picture("media_sources/blueMotorcycle.jpg");
+
             final Picture flipped = flip(picture);
             final Picture grayScale = gray(flipped);
+
+            final Picture shrunk = picture.resize(picture.getWidth() / 2, picture.getHeight() / 2);
             final Picture combo = grayScale.paste(picture.getWidth() / 4, picture.getHeight() / 4, shrunk);
 
             combo.frame();
