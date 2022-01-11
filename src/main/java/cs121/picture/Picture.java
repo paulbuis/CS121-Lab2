@@ -89,8 +89,8 @@ public class Picture implements Iterable<Pixel> {
 		return new PictureShower(this);
 	}
 
-	public PictureFrame frame() {
-		return new PictureFrame(this);
+	public void frame() {
+		new PictureFrame(this);
 	}
 
 	public Picture transform(PictureTransformer transformer) {
