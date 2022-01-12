@@ -6,7 +6,7 @@ package cs121.picture;
 
 import java.io.Serial;
 
-public class Color extends java.awt.Color {
+public final class Color extends java.awt.Color {
 
 	@Serial
 	private static final long serialVersionUID = -2130570556011744333L;

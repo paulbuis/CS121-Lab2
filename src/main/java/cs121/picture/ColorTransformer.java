@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.function.Function;
 
 @SuppressWarnings("unused")
-public class ColorTransformer extends PictureTransformer {
+public final class ColorTransformer extends PictureTransformer {
 
 	private final Function<Color, Color> colorFunction;
 

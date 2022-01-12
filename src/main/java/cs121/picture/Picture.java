@@ -13,115 +13,261 @@ import javax.imageio.ImageIO;
 @SuppressWarnings("unused")
 public class Picture implements Iterable<Pixel> {
 
-	private final BufferedImage image;
-	private final int width;
-	private final int height;
+    private final BufferedImage image;
+    private final int width;
+    private final int height;
 
-	public Picture(String fileName) throws IOException {
+    /**
+     *
+     * @param fileName
+     * @throws IOException
+     */
+    public Picture(String fileName) throws IOException {
+        this(ImageIO.read(new File(fileName)));
+    }
 
-		this(ImageIO.read(new File(fileName)));
-	}
+    /**
+     * Copy constructor
+     *
+     * @param picture
+     */
+    @SuppressWarnings("CopyConstructorMissesField")
+    public Picture(Picture picture) {
+        this(picture.image);
+    }
 
-	/* a "copy constructor" */
-	@SuppressWarnings("CopyConstructorMissesField")
-	public Picture(Picture picture) {
-		this(picture.image);
-	}
+    /**
+     *
+     * @param width
+     * @param height
+     */
+    public Picture(int width, int height) {
+        this.width = width;
+        this.height = height;
+        this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+    }
 
-	public Picture(int width, int height) {
-		this.width = width;
-		this.height = height;
-		this.image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-	}
+    /**
+     *
+     * @param size
+     */
+    public Picture(RectangleSize size) {
+        this(size.width(), size.height()) ;
+    }
 
-	public Picture(BufferedImage oldImage) {
-		this(oldImage.getWidth(), oldImage.getHeight());
-		Graphics g = image.getGraphics();
-		g.drawImage(oldImage, 0, 0, null);
-	}
+    Picture(BufferedImage oldImage) {
+        this(oldImage.getWidth(), oldImage.getHeight());
+        Graphics g = image.getGraphics();
+        g.drawImage(oldImage, 0, 0, null);
+    }
 
-	public int getWidth() {
-		return width;
-	}
+    /**
+     *
+     * @return horizontal pixel count
+     */
+    public int getWidth() {
+        return width;
+    }
 
-	public int getHeight() {
-		return height;
-	}
+    /**
+     *
+     * @return vertical pixel count
+     */
+    public int getHeight() {
+        return height;
+    }
 
-	// Package private, provides access to PictureShower class !!!
-	BufferedImage getImage() {
-		return image;
-	}
+    /**
+     *
+     * @return horizontal and vertical pixel counts
+     */
+    public RectangleSize getSize() {
+        return new RectangleSize(width, height);
+    }
 
-	public Pixel getPixel(int x, int y) {
-		return new Pixel(x, y, image);
-	}
+    // Package private, provides access to PictureShower class !!!
 
-	public Pixel getPixel(PixelLocation location) {
-		return new Pixel(location, image);
-	}
+    /**
+     *
+     * @return
+     */
+    BufferedImage getImage() {
+        return image;
+    }
 
-	public Color getColor(int x, int y) {
-		return getPixel(x, y).getColor();
-	}
+    /**
+     *
+     * @param x distance from left edge
+     * @param y distance from top edge
+     *
+     * @return
+     */
+    public Pixel getPixel(int x, int y) {
+        return new Pixel(x, y, image);
+    }
 
-	public Color getColor(PixelLocation location) {
-		return getPixel(location).getColor();
-	}
+    /**
+     *
+     * @param location
+     * @return
+     */
+    public Pixel getPixel(PixelLocation location) {
+        return new Pixel(location, image);
+    }
 
-	public void setColor(int x, int y, Color color) {
-		getPixel(x, y).setColor(color);
-	}
+    /**
+     *
+     * @param x
+     * @param y
+     * @return
+     */
+    public Color getColor(int x, int y) {
+        return getPixel(x, y).getColor();
+    }
 
-	public void setColor(PixelLocation location, Color color) {
-		getPixel(location).setColor(color);
-	}
-	
-	public Picture resize(int newWidth, int newHeight) {
-		return transform(new Resizer(newWidth, newHeight));
-	}
-	
-	public Picture paste(int x, int y, Picture picture) {
-		return transform(new Paster(x, y, picture));
-	}
+    /**
+     *
+     * @param location
+     * @return
+     */
+    public Color getColor(PixelLocation location) {
+        return getPixel(location).getColor();
+    }
 
-	public PictureShower show() {
-		return new PictureShower(this);
-	}
+    /**
+     *
+     * @param x
+     * @param y
+     * @param color
+     */
+    public void setColor(int x, int y, Color color) {
+        getPixel(x, y).setColor(color);
+    }
 
-	public void frame() {
-		new PictureFrame(this);
-	}
+    /**
+     *
+     * @param location
+     * @param color
+     */
+    public void setColor(PixelLocation location, Color color) {
+        getPixel(location).setColor(color);
+    }
 
-	public Picture transform(PictureTransformer transformer) {
-		return transformer.apply(new Picture(this));
-	}
+    /**
+     *
+     * @param newWidth
+     * @param newHeight
+     * @return
+     */
+    public Picture resize(int newWidth, int newHeight) {
+        return transform(new Resizer(newWidth, newHeight));
+    }
 
-	public Iterator<Pixel> iterator() {
-		return new PixelIterator();
-	}
+    /**
+     *
+     * @param size
+     * @return
+     */
+    public Picture resize(RectangleSize size) {
+        return resize(size.width(), size.height());
+    }
 
-	private final class PixelIterator implements Iterator<Pixel> {
+    /**
+     *
+     * @param x
+     * @param y
+     * @param picture
+     * @return
+     */
+    public Picture paste(int x, int y, Picture picture) {
+        return transform(new Paster(x, y, picture));
+    }
 
-		private PixelLocation location = new PixelLocation(0, 0);
+    /**
+     *
+     * @param location
+     * @param picture
+     * @return
+     */
+    public Picture paste(PixelLocation location, Picture picture) {
+        return paste(location.x(), location.y(), picture);
+    }
 
-		@Override
-		public boolean hasNext() {
-			return (location.x() < Picture.this.width) && (location.y() < Picture.this.height);
-		}
+    /**
+     *
+     * @param x
+     * @param y
+     * @param height
+     * @param width
+     * @return
+     */
+    public Picture crop(int x, int y, int width, int height) {
+        return transform(new Cropper(x, y, width, height));
+    }
 
-		@Override
-		public Pixel next() {
-			Pixel nextPixel = new Pixel(location, Picture.this.image);
-			if (location.x() + 1 < Picture.this.width) {
-				location = new PixelLocation(location.x() + 1, location.y());
-			} else if (location.y() + 1 < Picture.this.height) {
-				location = new PixelLocation(0, location.y() + 1);
-			} else {
-				location = new PixelLocation(Picture.this.width, Picture.this.height);
-			}
+    /**
+     *
+     * @param location
+     * @param newSize
+     * @return
+     */
+    public Picture crop(PixelLocation location, RectangleSize newSize) {
+        return transform(new Cropper(location, newSize));
+    }
 
-			return nextPixel;
-		}
-	}
+    /**
+     *
+     * @return a PictureShower that will show this image
+     */
+    public PictureShower show() {
+        return new PictureShower(this);
+    }
+
+    /**
+     *
+     */
+    public void frame() {
+        new PictureFrame(this);
+    }
+
+    /**
+     *
+     * @param transformer
+     * @return
+     */
+    public Picture transform(PictureTransformer transformer) {
+        return transformer.apply(new Picture(this));
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Iterator<Pixel> iterator() {
+        return new PixelIterator();
+    }
+
+    private final class PixelIterator implements Iterator<Pixel> {
+
+        private PixelLocation location = new PixelLocation(0, 0);
+
+        @Override
+        public boolean hasNext() {
+            return (location.x() < Picture.this.width) && (location.y() < Picture.this.height);
+        }
+
+        @Override
+        public Pixel next() {
+            Pixel nextPixel = new Pixel(location, Picture.this.image);
+            if (location.x() + 1 < Picture.this.width) {
+                location = new PixelLocation(location.x() + 1, location.y());
+            } else if (location.y() + 1 < Picture.this.height) {
+                location = new PixelLocation(0, location.y() + 1);
+            } else {
+                location = new PixelLocation(Picture.this.width, Picture.this.height);
+            }
+
+            return nextPixel;
+        }
+    }
 }

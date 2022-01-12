@@ -9,6 +9,10 @@ public class Resizer extends PictureTransformer {
 		this.newHeight = newHeight;
 	}
 
+	public Resizer(RectangleSize size) {
+		this(size.width(), size.height());
+	}
+
 	@Override
 	public Picture apply(Picture oldPicture) {
 		final int oldHeight = oldPicture.getHeight();

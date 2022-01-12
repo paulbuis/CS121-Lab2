@@ -1,6 +1,6 @@
 package cs121.picture;
 
-public class Paster extends PictureTransformer {
+public final class Paster extends PictureTransformer {
 
 	private final int xOffset;
 	private final int yOffset;

@@ -22,10 +22,11 @@ public class LocationTransformer extends PictureTransformer {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				final PixelLocation oldLocation = locationFunction.apply(new PixelLocation(x, y));
+				// allow for negative values of x and y in oldLocation, also
+				// allow for values of x and y greater than width and height
 				final int oldX = (oldLocation.x() % width + width) % width;
 				final int oldY = (oldLocation.y() % height + height) % height;
-				final int oldRGB = oldImage.getRGB(oldX, oldY);
-				newImage.setRGB(x, y, oldRGB);
+				newImage.setRGB(x, y, oldImage.getRGB(oldX, oldY));
 			}
 		}
 		return newPicture;
