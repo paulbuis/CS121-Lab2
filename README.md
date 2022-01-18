@@ -3,6 +3,11 @@ package described below.
 
 ## `picture` package
 
+Reverse engineered from the textbook discussion of [JES](https://github.com/gatech-csl/jes):
+the *Jython Environment for Students*
+in *Introduction to Computing and Programming in Python: A Multimedia Approach*
+by Mark Guzdial and Barbara Ericson.
+
 ### `Picture` class
 
 A `Picture` object is an `Iterable` collection of
@@ -10,27 +15,28 @@ A `Picture` object is an `Iterable` collection of
 
 #### `RectangleSize`
 
-A `RectangleSize` record has two attributes:
+A `RectangleSize` record has two `int` attributes:
 `width` and `height`.
 
 ### `Pixel` class
 
-Each pixel has two attributes: a `PixelLocation` and a `Color`.
+Each pixel has two `int` attributes: a `PixelLocation` and a `Color`.
 
 #### `PixelLocation`
 
-A `PixelLocation` record has 2 attributes: `x` and `y`.
+A `PixelLocation` record has two `int` attributes: `x` and `y`.
 
-#### 'Color'
+#### `Color`
 
-A `Color` object has three attributes with values ranging from 0 to 255: *red*, *green*, and *blue*.
+A `Color` object has three `int` attributes with values ranging from 0 to 255: *red*, *green*, and *blue*.
 
 ## Examples
 
-
 ### Gray Scale
+
 To destructively convert a `Picture` named `picture`
 to gray scale one could use the following nested loop:
+
 ```java
 final int height = picture.getSize().height();
 final int width = picture.getSize().width();
@@ -54,7 +60,8 @@ for (Pixel pixel : picture) {
 ```
 
 ### Cropping
-This function will take `Picture` and return a new cropped `Picture`:
+
+This function will take a `Picture` object and return a new cropped `Picture`:
 ```java
 public static Picture crop(Picture oldPicture, PixelLocation location,  RectagleSize newSize) {
     final Picture newPicture = new Picture(newSize.width(), newSize.height());
@@ -69,13 +76,13 @@ public static Picture crop(Picture oldPicture, PixelLocation location,  Rectagle
 
 ### Resizing
 
-A simplistic resizer can be implemented as follows:
+A simplistic resize operation can be implemented as follows:
 
 ```java
 public static Picture resize(Picture oldPicture, RectangleSize newSize) {
     final int oldHeight = oldPicture.getSize().height();
     final double heightRatio = oldHeight / (double) newSize.height();
-    final int oldWidth = oldPicture.getWidth();
+    final int oldWidth = oldPicture.getSize().width();
     final double widthRatio = oldWidth / (double) newSize.width();
     final Picture newPicture = new Picture(newSize);
     for (int x = 0; x < newSize.width(); x++) {
@@ -99,3 +106,9 @@ licensed under the Creative Commons License
 distributed for use with *Introduction to Computing and Programming in Python: A Multimedia Approach* by Mark Guzdial and Barbara Ericson.
 
 This work is available for use with the same license.
+
+## Week 2 Lab Assignment
+
+As in Week 1, use IntelliJ to create a new project from version control.
+This week, use the URL `https://github.com/paulbuis/CS121-Lab2.git`
+
