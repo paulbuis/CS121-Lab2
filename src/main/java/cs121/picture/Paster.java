@@ -12,6 +12,10 @@ public final class Paster extends PictureTransformer {
 		this.pastePicture = picture;
 	}
 
+	public Paster(PixelLocation location, Picture picture) {
+		this(location.x(), location.y(), picture);
+	}
+
 	@Override
 	public Picture apply(Picture picture) {
 		for (Pixel pastePixel : pastePicture) {

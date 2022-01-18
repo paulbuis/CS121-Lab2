@@ -169,7 +169,7 @@ public class Picture implements Iterable<Pixel> {
      * @return
      */
     public Picture resize(RectangleSize size) {
-        return resize(size.width(), size.height());
+        return transform(new Resizer(size));
     }
 
     /**
