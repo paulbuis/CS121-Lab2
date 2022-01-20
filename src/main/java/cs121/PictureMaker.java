@@ -7,9 +7,11 @@ import cs121.picture.*;
 public class PictureMaker {
 
     public static Picture flip(Picture picture) {
-        final int height = picture.getHeight();
-        final int width = picture.getWidth();
-        final Picture flipped = new Picture(width, height);
+        RectangleSize size = picture.getSize();
+        int height = size.height();
+        int width = size.width();
+        Picture flipped = new Picture(size);
+
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 int newX = width - x - 1;
@@ -22,8 +24,8 @@ public class PictureMaker {
 
     public static Picture gray(Picture picture) {
         for (Pixel pixel : picture) {
-            final Color oldColor = pixel.getColor();
-            final int grey = (oldColor.getRed() + oldColor.getGreen() + oldColor.getBlue()) / 3;
+            Color oldColor = pixel.getColor();
+            int grey = (oldColor.getRed() + oldColor.getGreen() + oldColor.getBlue()) / 3;
             pixel.setColor(new Color(grey, grey, grey));
         }
         return picture;
@@ -36,12 +38,17 @@ public class PictureMaker {
             final Picture flipped = flip(picture);
             final Picture grayScale = gray(flipped);
 
-            final Picture shrunk = picture.resize(picture.getWidth() / 2, picture.getHeight() / 2);
-            final Picture combo = grayScale.paste(picture.getWidth() / 4, picture.getHeight() / 4, shrunk);
+            final Picture shrunk = picture.resize(
+                    picture.getWidth() / 2, picture.getHeight() / 2);
+            final Picture combo = grayScale.paste(
+                    picture.getWidth() / 4, picture.getHeight() / 4, shrunk);
 
+            flipped.frame();
+            shrunk.frame();
             combo.frame();
 
         } catch (IOException e) {
+            System.err.println("OOPS!");
             e.printStackTrace();
         }
 

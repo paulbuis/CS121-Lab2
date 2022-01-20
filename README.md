@@ -112,3 +112,50 @@ This work is available for use with the same license.
 As in Week 1, use IntelliJ to create a new project from version control.
 This week, use the URL `https://github.com/paulbuis/CS121-Lab2.git`
 
+### Part 1: Interchange x and y
+
+Take a picture and make a new picture so that the color at location (x,y) in
+the new picture is the color at location (y, x) in the old one.
+In JES this could be done something like:
+
+```python
+picture = makePicture("media_sources/blue_motorcycle.jpg")
+rotated = makeEmptyPicture(picture.getHeight(), picture.getWidth())
+for pixel in picture.getPixels():
+  x = pixel.getX()
+  y = pixel.getY()
+  rotatedPixel = rotated.getPixel(y, x)
+  rotatedPixel.setColor(pixel.getColor())
+
+rotated.show()
+```
+
+When you've completed this step, switch between pilot and navigator.
+
+### Red screen
+
+Form a picture by replacing its reddish pixels
+with  pixels from a picture of the moon's surface.
+In JES this would be done something like:
+
+```Python
+moon = makePicture("E:\media_sources\moon-surface.jpg")
+red = makePicture("E:\media_sources\\red.jpg")
+
+def reddish(color):
+  red = makeColor(200, 0, 0)
+  d = distance(red, color)
+  return (d < 100)
+
+
+for pixel in red.getPixels():
+    color = pixel.getColor()
+    if reddish(color):
+      moonPixel = moon.getPixel(pixel.getX(), pixel.getY())
+      pixel.setColor(moonPixel.getColor())
+      
+red.show()
+```
+
+
+Show your lab istructor the resulting picture!

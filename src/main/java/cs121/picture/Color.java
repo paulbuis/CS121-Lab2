@@ -18,4 +18,11 @@ public final class Color extends java.awt.Color {
 	public Color(int red, int green, int blue) {
 		super(red, green, blue);
 	}
+
+	public double distance(Color color) {
+		double redDiff = getRed() - color.getRed();
+		double greenDiff = getGreen() - color.getGreen();
+		double blueDiff = getBlue() - color.getBlue();
+		return Math.sqrt(redDiff*redDiff + greenDiff*greenDiff + blueDiff*blueDiff);
+	}
 }
