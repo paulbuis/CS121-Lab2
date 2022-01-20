@@ -137,6 +137,8 @@ rotated.show()
 
 * Instead of `picture.getPixels()` you can just use `picture`
 
+* Instead of the `show()` function use the `frame()` method of class `Picture`.
+
 When you've completed this step, switch between pilot and navigator.
 
 ### Red screen
