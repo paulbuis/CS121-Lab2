@@ -130,6 +130,13 @@ for pixel in picture.getPixels():
 rotated.show()
 ```
 
+#### Notes:
+
+* Instead of `makePicture()` and `makeEmptyPicture()` use
+`new Picture()` with similar arguments.
+
+* Instead of `picture.getPixels()` you can just use `picture`
+
 When you've completed this step, switch between pilot and navigator.
 
 ### Red screen
@@ -139,8 +146,8 @@ with  pixels from a picture of the moon's surface.
 In JES this would be done something like:
 
 ```Python
-moon = makePicture("E:\media_sources\moon-surface.jpg")
-red = makePicture("E:\media_sources\\red.jpg")
+moon = makePicture("media_sources/moon-surface.jpg")
+red = makePicture("media_sources/red.jpg")
 
 def reddish(color):
   red = makeColor(200, 0, 0)
@@ -156,6 +163,14 @@ for pixel in red.getPixels():
       
 red.show()
 ```
+
+
+
+#### Notes for translation to this Java library:
+
+* Instead of `distance(color1, color2)` use `color1.distance(color2)`
+
+
 
 
 Show your lab istructor the resulting picture!
