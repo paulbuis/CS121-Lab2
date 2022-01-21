@@ -103,6 +103,22 @@ public class Picture implements Iterable<Pixel> {
      * @return
      */
     public Pixel getPixel(int x, int y) {
+        if (x < 0) {
+            throw new IllegalArgumentException(
+                    String.format("x=%d, must not be negative", x));
+        }
+        if (y < 0) {
+            throw new IllegalArgumentException(
+                    String.format("y=%d, must not be negative", y));
+        }
+        if (x >= width) {
+            throw new IllegalArgumentException(
+                    String.format("x=%d, width=%d, x must be less than width", x, width));
+        }
+        if (y >= height) {
+            throw new IllegalArgumentException(
+                    String.format("y=%d, height=%d, y must be less than height", y, height));
+        }
         return new Pixel(x, y, image);
     }
 
@@ -122,6 +138,22 @@ public class Picture implements Iterable<Pixel> {
      * @return
      */
     public Color getColor(int x, int y) {
+        if (x < 0) {
+            throw new IllegalArgumentException(
+                    String.format("x=%d, must not be negative", x));
+        }
+        if (y < 0) {
+            throw new IllegalArgumentException(
+                    String.format("y=%d, must not be negative", y));
+        }
+        if (x >= width) {
+            throw new IllegalArgumentException(
+                    String.format("x=%d, width=%d, x must be less than width", x, width));
+        }
+        if (y >= height) {
+            throw new IllegalArgumentException(
+                    String.format("y=%d, height=%d, y must be less than height", y, height));
+        }
         return getPixel(x, y).getColor();
     }
 
@@ -141,6 +173,22 @@ public class Picture implements Iterable<Pixel> {
      * @param color
      */
     public void setColor(int x, int y, Color color) {
+        if (x < 0) {
+            throw new IllegalArgumentException(
+                    String.format("x=%d, must not be negative", x));
+        }
+        if (y < 0) {
+            throw new IllegalArgumentException(
+                    String.format("y=%d, must not be negative", y));
+        }
+        if (x >= width) {
+            throw new IllegalArgumentException(
+                    String.format("x=%d, width=%d, x must be less than width", x, width));
+        }
+        if (y >= height) {
+            throw new IllegalArgumentException(
+                    String.format("y=%d, height=%d, y must be less than height", y, height));
+        }
         getPixel(x, y).setColor(color);
     }
 
