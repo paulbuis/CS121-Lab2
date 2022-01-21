@@ -19,7 +19,17 @@ public final class Color extends java.awt.Color {
 		super(red, green, blue);
 	}
 
+	public static double distance(java.awt.Color color1, java.awt.Color color2) {
+		double redDiff = color1.getRed() - color2.getRed();
+		double greenDiff = color1.getGreen() - color2.getGreen();
+		double blueDiff = color1.getBlue() - color2.getBlue();
+		return Math.sqrt(redDiff*redDiff + greenDiff*greenDiff + blueDiff*blueDiff);
+	}
+
 	public double distance(Color color) {
+		if (color == null) {
+			throw new IllegalArgumentException("Color.distance(color==null), color may not be null");
+		}
 		double redDiff = getRed() - color.getRed();
 		double greenDiff = getGreen() - color.getGreen();
 		double blueDiff = getBlue() - color.getBlue();
