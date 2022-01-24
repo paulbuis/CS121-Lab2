@@ -18,7 +18,6 @@ public class Picture implements Iterable<Pixel> {
     private final int height;
 
     /**
-     *
      * @param fileName
      * @throws IOException
      */
@@ -37,7 +36,6 @@ public class Picture implements Iterable<Pixel> {
     }
 
     /**
-     *
      * @param width
      * @param height
      */
@@ -48,11 +46,10 @@ public class Picture implements Iterable<Pixel> {
     }
 
     /**
-     *
      * @param size
      */
     public Picture(RectangleSize size) {
-        this(size.width(), size.height()) ;
+        this(size.width(), size.height());
     }
 
     Picture(BufferedImage oldImage) {
@@ -62,7 +59,6 @@ public class Picture implements Iterable<Pixel> {
     }
 
     /**
-     *
      * @return horizontal pixel count
      */
     public int getWidth() {
@@ -70,7 +66,6 @@ public class Picture implements Iterable<Pixel> {
     }
 
     /**
-     *
      * @return vertical pixel count
      */
     public int getHeight() {
@@ -78,7 +73,6 @@ public class Picture implements Iterable<Pixel> {
     }
 
     /**
-     *
      * @return horizontal and vertical pixel counts
      */
     public RectangleSize getSize() {
@@ -88,7 +82,6 @@ public class Picture implements Iterable<Pixel> {
     // Package private, provides access to PictureShower class !!!
 
     /**
-     *
      * @return
      */
     BufferedImage getImage() {
@@ -96,10 +89,8 @@ public class Picture implements Iterable<Pixel> {
     }
 
     /**
-     *
      * @param x distance from left edge
      * @param y distance from top edge
-     *
      * @return
      */
     public Pixel getPixel(int x, int y) {
@@ -123,16 +114,35 @@ public class Picture implements Iterable<Pixel> {
     }
 
     /**
-     *
      * @param location
      * @return
      */
     public Pixel getPixel(PixelLocation location) {
+        if (location.x() < 0) {
+            throw new IllegalArgumentException(
+                    String.format("location.x()=%d, must not be negative",
+                            location.x()));
+        }
+        if (location.y() < 0) {
+            throw new IllegalArgumentException(
+                    String.format("location.y()=%d, must not be negative",
+                            location.y()));
+        }
+        if (location.x() >= width) {
+            throw new IllegalArgumentException(
+                    String.format("location.x()=%d, width=%d, location.x() must be less than width",
+                            location.x(), width));
+        }
+        if (location.y() >= height) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "location.y()=%d, height=%d, location.y() must be less than height",
+                            location.y(), height));
+        }
         return new Pixel(location, image);
     }
 
     /**
-     *
      * @param x
      * @param y
      * @return
@@ -158,16 +168,34 @@ public class Picture implements Iterable<Pixel> {
     }
 
     /**
-     *
      * @param location
      * @return
      */
     public Color getColor(PixelLocation location) {
+        if (location.x() < 0) {
+            throw new IllegalArgumentException(
+                    String.format("location.x()=%d, must not be negative",
+                            location.x()));
+        }
+        if (location.y() < 0) {
+            throw new IllegalArgumentException(
+                    String.format("location.y()=%d, must not be negative",
+                            location.y()));
+        }
+        if (location.x() >= width) {
+            throw new IllegalArgumentException(
+                    String.format("location.x()=%d, width=%d, location.x() must be less than width",
+                            location.x(), width));
+        }
+        if (location.y() >= height) {
+            throw new IllegalArgumentException(
+                    String.format("location.y()=%d, height=%d, location.y() must be less than height",
+                            location.y(), height));
+        }
         return getPixel(location).getColor();
     }
 
     /**
-     *
      * @param x
      * @param y
      * @param color
@@ -193,7 +221,6 @@ public class Picture implements Iterable<Pixel> {
     }
 
     /**
-     *
      * @param location
      * @param color
      */
@@ -202,7 +229,6 @@ public class Picture implements Iterable<Pixel> {
     }
 
     /**
-     *
      * @param newWidth
      * @param newHeight
      * @return
@@ -212,7 +238,6 @@ public class Picture implements Iterable<Pixel> {
     }
 
     /**
-     *
      * @param size
      * @return
      */
@@ -221,7 +246,6 @@ public class Picture implements Iterable<Pixel> {
     }
 
     /**
-     *
      * @param x
      * @param y
      * @param picture
@@ -232,7 +256,6 @@ public class Picture implements Iterable<Pixel> {
     }
 
     /**
-     *
      * @param location
      * @param picture
      * @return
@@ -242,7 +265,6 @@ public class Picture implements Iterable<Pixel> {
     }
 
     /**
-     *
      * @param x
      * @param y
      * @param height
@@ -254,7 +276,6 @@ public class Picture implements Iterable<Pixel> {
     }
 
     /**
-     *
      * @param location
      * @param newSize
      * @return
@@ -264,7 +285,6 @@ public class Picture implements Iterable<Pixel> {
     }
 
     /**
-     *
      * @return a PictureShower that will show this image
      */
     public PictureShower show() {
@@ -279,7 +299,6 @@ public class Picture implements Iterable<Pixel> {
     }
 
     /**
-     *
      * @param transformer
      * @return
      */
@@ -288,7 +307,6 @@ public class Picture implements Iterable<Pixel> {
     }
 
     /**
-     *
      * @return
      */
     public Iterator<Pixel> iterator() {

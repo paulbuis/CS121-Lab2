@@ -7,6 +7,12 @@ public final class Cropper extends PictureTransformer {
 	private final int y;
 
 	public Cropper(int x, int y, int newWidth, int newHeight) {
+		if (x < 0) {
+			x = 0;
+		}
+		if (y < 0) {
+			y = 0;
+		}
 		this.x = x;
 		this.y = y;
 		this.newWidth = newWidth;
@@ -19,9 +25,11 @@ public final class Cropper extends PictureTransformer {
 
 	@Override
 	public Picture apply(Picture oldPicture) {
-		final Picture newPicture = new Picture(newWidth, newHeight);
-		for (int xOffset = 0; xOffset < newWidth; xOffset++) {
-			for (int yOffset = 0; yOffset < newHeight; yOffset++) {
+		int width = newWidth <= oldPicture.getWidth() ? newWidth : oldPicture.getWidth();
+		int height = newHeight <= oldPicture.getHeight() ? newHeight : oldPicture.getHeight();
+		final Picture newPicture = new Picture(width, height);
+		for (int xOffset = 0; xOffset < width; xOffset++) {
+			for (int yOffset = 0; yOffset < height; yOffset++) {
 				newPicture.setColor(x, y, oldPicture.getColor(x + xOffset,y + yOffset));
 			}
 		}

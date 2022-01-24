@@ -7,10 +7,10 @@ import cs121.picture.*;
 public class PictureMaker {
 
     public static Picture flip(Picture picture) {
-        RectangleSize size = picture.getSize();
-        int height = size.height();
-        int width = size.width();
-        Picture flipped = new Picture(size);
+
+        int height = picture.getHeight();
+        int width = picture.getWidth();
+        Picture flipped = new Picture(width, height);
 
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {

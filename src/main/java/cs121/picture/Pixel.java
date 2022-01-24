@@ -14,6 +14,26 @@ public final class Pixel {
 
 
 	Pixel(PixelLocation location, BufferedImage image) {
+		if (location.x() < 0) {
+			throw new IllegalArgumentException(
+					String.format("location.x()=%d, must not be negative",
+							location.x()));
+		}
+		if (location.y() < 0) {
+			throw new IllegalArgumentException(
+					String.format("location.y()=%d, must not be negative",
+							location.y()));
+		}
+		if (location.x() >= image.getWidth()) {
+			throw new IllegalArgumentException(
+					String.format("location.x()=%d, image width=%d, location.x() must be less than width",
+							location.x(), image.getWidth()));
+		}
+		if (location.y() >= image.getHeight()) {
+			throw new IllegalArgumentException(
+					String.format("location.y()=%d, image height=%d, location.y() must be less than height",
+							location.y(), image.getHeight()));
+		}
 		this.location = location;
 		this.image = image;
 	}

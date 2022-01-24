@@ -21,7 +21,7 @@ public final class Paster extends PictureTransformer {
 		for (Pixel pastePixel : pastePicture) {
 			int x = xOffset + pastePixel.getX();
 			int y = yOffset + pastePixel.getY();
-			if (x < picture.getWidth() && y < picture.getHeight()) {
+			if (x >= 0 && y >= 0 && x < picture.getWidth() && y < picture.getHeight()) {
 				picture.setColor(x, y, pastePixel.getColor());
 			}
 		}

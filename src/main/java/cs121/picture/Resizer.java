@@ -5,6 +5,14 @@ public class Resizer extends PictureTransformer {
 	private final int newHeight;
 
 	public Resizer(int newWidth, int newHeight) {
+		if (newWidth <= 0) {
+			throw new IllegalArgumentException(
+				String.format("newWidth=%d, must be positive", newWidth));
+		}
+		if (newHeight <= 0) {
+			throw new IllegalArgumentException(
+					String.format("newHeight=%d, must be positive", newHeight));
+		}
 		this.newWidth = newWidth;
 		this.newHeight = newHeight;
 	}
